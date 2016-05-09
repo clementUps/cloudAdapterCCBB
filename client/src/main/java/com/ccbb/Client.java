@@ -27,7 +27,7 @@ public class Client {
             Update update = new Update();
             update.init();
         } catch (ServletWebServer.Exception e) {
-            System.out.println("Error :"+e.getMessage());
+            System.out.println("Error :" + e.getMessage());
         }
     }
 }
