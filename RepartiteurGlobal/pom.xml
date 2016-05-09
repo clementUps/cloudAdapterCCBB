@@ -34,7 +34,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.ccbb.RepartieurGlobal</mainClass>
+                            <mainClass>com.ccbb.RepartiteurGlobal</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
