@@ -17,6 +17,7 @@ public class RepartiteurUpdate {
         String str = executeProcess("neutron floatingip-create public");
         int cpt = 0;
         for(String st : str.split("|")){
+            System.out.println("je passe ici "+st);
             if(st.contains("floating_ip_address")){
                 System.out.println(str.split("|")[cpt+1].trim());
             }
