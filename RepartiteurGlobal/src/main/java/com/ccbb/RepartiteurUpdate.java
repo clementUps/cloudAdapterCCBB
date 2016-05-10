@@ -16,7 +16,7 @@ public class RepartiteurUpdate {
                 + " --key-name myKeyCCBB privateCCBB");
         String str = executeProcess("neutron floatingip-create public");
         int cpt = 0;
-        for(String st : str.split("|")){
+        for(String st : str.split("\n")){
             System.out.println("je passe ici "+st);
             if(st.contains("floating_ip_address")){
                 System.out.println(str.split("|")[cpt+1].trim());
