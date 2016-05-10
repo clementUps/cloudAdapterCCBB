@@ -18,7 +18,10 @@ public class RepartiteurUpdate {
         int cpt = 0;
         for(String st : str.split("\n")){
             if(st.contains("floating_ip_address")){
-                System.out.println(str.split("\n")[cpt]);
+                System.out.println(st);
+                for(String s : st.split("|")){
+                    System.out.println(s);
+                }
             }
             cpt ++;
         }
