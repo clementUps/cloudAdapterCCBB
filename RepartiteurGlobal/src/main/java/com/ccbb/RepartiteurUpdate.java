@@ -15,10 +15,12 @@ public class RepartiteurUpdate {
                 + " --nic net-id=c1445469-4640-4c5a-ad86-9c0cb6650cca --security-group default"
                 + " --key-name myKeyCCBB privateCCBB");
         String str = executeProcess("neutron floatingip-create public");
-        for(String st : str.split("\n")){
+        int cpt = 0;
+        for(String st : str.split("|")){
             if(st.contains("floating_ip_address")){
-                System.out.println(st.split("|")[1].trim());
+                System.out.println(str.split("|")[cpt+1].trim());
             }
+            cpt ++;
         }
         return "";
 
