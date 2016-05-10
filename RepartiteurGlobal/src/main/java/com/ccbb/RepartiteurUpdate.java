@@ -15,12 +15,9 @@ public class RepartiteurUpdate {
                 + " --nic net-id=c1445469-4640-4c5a-ad86-9c0cb6650cca --security-group default"
                 + " --key-name myKeyCCBB privateCCBB");
         String str = executeProcess("neutron floatingip-create public");
-        int cpt = 0;
+        String strFinal = "";
         for(String st : str.split("\n")){
             if(st.contains("floating_ip_address")){
-                System.out.println(st);
-                    System.out.println(st.split("floating_ip_address")[1]+"\n\n");
-                String strFinal = "";
                 for(char s : st.split("floating_ip_address")[1].toCharArray()){
                     if(s != '|'){
                         strFinal += s;
@@ -28,8 +25,8 @@ public class RepartiteurUpdate {
                 }
                 System.out.println(strFinal.trim());
             }
-            cpt ++;
         }
+        executeProcess("nova floating-ip-associate privateCCBB "+strFinal.trim());
         return "";
 
     }
