@@ -19,18 +19,17 @@ public class RepartiteurUpdate {
         for(String st : str.split("\n")){
             if(st.contains("floating_ip_address")){
                 System.out.println(st);
-                    System.out.println(st.split("floating_ip_address")[1]);
+                    System.out.println(st.split("floating_ip_address")[1]+"\n\n");
                 String strFinal = "";
                 for(char s : st.split("floating_ip_address")[1].toCharArray()){
                     if(s != '|'){
                         strFinal += s;
                     }
                 }
-                System.out.println(strFinal);
+                System.out.println(strFinal.trim());
             }
             cpt ++;
         }
-        System.out.println(str);
         return "";
 
     }
