@@ -14,7 +14,12 @@ public class RepartiteurUpdate {
         executeProcess("nova boot --flavor m1.small --image FC23"
                 + " --nic net-id=c1445469-4640-4c5a-ad86-9c0cb6650cca --security-group default"
                 + " --key-name myKeyCCBB privateCCBB");
-        System.out.println(executeProcess("neutron floatingip-create public"));
+        String str = executeProcess("neutron floatingip-create public");
+        for(String st : str.split("\n")){
+            if(st.contains("floating_ip_address")){
+                System.out.println(st.split("|")[1].trim());
+            }
+        }
         return "";
 
     }
