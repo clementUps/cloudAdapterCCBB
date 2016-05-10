@@ -14,7 +14,7 @@ public class RepartiteurUpdate {
         executeProcess("nova boot --flavor m1.small --image FC23"
                 + " --nic net-id=c1445469-4640-4c5a-ad86-9c0cb6650cca --security-group default"
                 + " --key-name myKeyCCBB privateCCBB");
-        System.out.println(executeProcess("neutron floatingp-create public"));
+        System.out.println(executeProcess("neutron floatingip-create public"));
         return "";
 
     }
