@@ -31,7 +31,7 @@ public class Main {
         client.setConfig(config);
         final Object[] params = new Object[]
                 { new String(" nombre ")};
-        client.execute("A.bonjour", params);
+        System.out.println(client.execute("A.bonjour", params));
     }
 
 }
