@@ -1,15 +1,7 @@
-package com.ccbb.repartiteur;
+package com.ccbb.repartiteurVm;
 
-import com.ccbb.Reception.Algorithme;
-import com.ccbb.Reception.EnvoieServer;
-import com.ccbb.Reception.ReceptionRequete;
-import com.ccbb.Reception.Repartition;
-import org.apache.xmlrpc.client.XmlRpcClient;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-import org.apache.xmlrpc.client.XmlRpcCommonsTransportFactory;
+import com.ccbb.ReceptionVm.ReceptionRequete;
 import org.apache.xmlrpc.webserver.ServletWebServer;
-
-import java.net.URL;
 
 import static java.lang.System.exit;
 //  import org.apache.xmlrpc.demo.proxy.Adder;

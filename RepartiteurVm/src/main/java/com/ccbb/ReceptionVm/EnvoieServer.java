@@ -1,4 +1,4 @@
-package com.ccbb.Reception;
+package com.ccbb.ReceptionVm;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -19,7 +19,7 @@ public class EnvoieServer {
     private static Server makeServer(String ip, int port)throws MalformedURLException{
         // create configuration
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-        config.setServerURL(new URL("http://"+ip+":"+port+"/xmlrpc"));
+        config.setServerURL(new URL("http://"+ip+":"+port+"/repartiteur"));
         config.setEnabledForExtensions(true);
         config.setConnectionTimeout(60 * 1000);
         config.setReplyTimeout(60 * 1000);
@@ -43,6 +43,11 @@ public class EnvoieServer {
     public static void addServer(String ip, int port) throws MalformedURLException{
         Server server = makeServer(ip,port);
         Algorithme.addServer(server);
+    }
+
+    public static void suppServer(String ip,int port) throws MalformedURLException {
+        Server server = makeServer(ip,port);
+        Algorithme.delServer(server);
     }
 
 

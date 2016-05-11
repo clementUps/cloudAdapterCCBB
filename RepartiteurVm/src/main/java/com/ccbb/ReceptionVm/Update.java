@@ -1,4 +1,4 @@
-package com.ccbb.Reception;
+package com.ccbb.ReceptionVm;
 
 import java.net.MalformedURLException;
 
@@ -16,8 +16,8 @@ public class Update {
         return 3;
     }
 
-    public int addId(int id){
-        Algorithme.setId(id);
-        return 1;
+    public int remove(String ip, int port) throws MalformedURLException {
+        EnvoieServer.suppServer(ip,port);
+        return 2;
     }
 }

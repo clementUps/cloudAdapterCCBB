@@ -29,7 +29,7 @@ public class ReceptionRequete {
                 (XmlRpcServerConfigImpl) xmlRpcServer.getConfig();
         serverConfig.setEnabledForExtensions(true);
         serverConfig.setContentLengthOptional(false);
-        System.out.println("Reception des requete pour répartiteur pret");
+        System.out.println("ReceptionVm des requete pour répartiteur pret");
         webServer.start();
     }
 }
