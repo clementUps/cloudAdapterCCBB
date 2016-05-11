@@ -8,12 +8,12 @@ import java.io.*;
 public class Main {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         File f = new File("/home/fedora/text.txt");
         int cpt = 0;
         while(f.exists()) {
             File file;
-            if(cpt < 10){
+            if(cpt < 1){
                 file = new File("/home/fedora/tempo"+cpt+".txt");
                 cpt ++;
             } else {
@@ -21,7 +21,7 @@ public class Main {
                 file = new File("/home/fedora/tempo"+cpt+".txt");
                 file.delete();
             }
-            f = new File("/home/fedora/text.txt");
+            Thread.currentThread().sleep(10000);
         }
     }
 }
