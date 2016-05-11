@@ -13,6 +13,7 @@
         <module>client</module>
         <module>RepartiteurGlobal</module>
         <module>test</module>
+        <module>Test2</module>
     </modules>
     <dependencies>
         <dependency>
