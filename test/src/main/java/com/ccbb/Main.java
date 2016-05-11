@@ -9,7 +9,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        File f = new File("test.txt");
+        File f = new File("/home/ubuntu/test.txt");
         OutputStream inputStream = new FileOutputStream(f);
         inputStream.write(("Salut c'est cool").getBytes());
     }
