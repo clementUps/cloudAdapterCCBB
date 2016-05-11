@@ -1,4 +1,4 @@
-package com.ccbb.a;
+package com.ccbb;
 
 /**
  * Created by CCA3441 on 11/05/2016.

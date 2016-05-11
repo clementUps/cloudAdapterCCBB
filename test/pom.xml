@@ -19,7 +19,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.ccbb.a.Main</mainClass>
+                            <mainClass>com.ccbb.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -33,7 +33,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.ccbb.a.Main</mainClass>
+                            <mainClass>com.ccbb.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

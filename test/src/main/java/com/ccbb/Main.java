@@ -1,4 +1,4 @@
-package com.ccbb.a;
+package com.ccbb;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.server.PropertyHandlerMapping;
