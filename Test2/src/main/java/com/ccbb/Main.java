@@ -13,7 +13,7 @@ import java.net.URL;
  */
 public class Main {
     private static final String url = "http://";
-    private static final String adresseDestination = "localhost";
+    private static final String adresseDestination = "192.168.0.74";
     private static final String portDestination = "2000";
     private static final String root = "/test";
 
