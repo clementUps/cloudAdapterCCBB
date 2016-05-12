@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Salut");
         InetAddress adrLocale = InetAddress.getLocalHost();
         System.out.println(" "+adrLocale.getHostAddress());
-        WebServer webServer = new WebServer(2000);
+        WebServer webServer = new WebServer(2001);
         XmlRpcServer xmlRpcServer = webServer.getXmlRpcServer();
 
         PropertyHandlerMapping phm = new PropertyHandlerMapping();
