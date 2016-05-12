@@ -46,7 +46,7 @@ public class Main {
 
 
                 OSClient os = OSFactory.builder()
-                        .endpoint("http://195.220.53.63:1500/v2.0")
+                        .endpoint("http://195.220.53.63:10500/v2.0")
                         .credentials("ens11","J8N9CE").tenantName("service")
                         .authenticate();
                 System.out.println(os);
