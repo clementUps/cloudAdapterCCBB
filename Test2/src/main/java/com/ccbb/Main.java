@@ -23,7 +23,6 @@ public class Main {
         config.setEnabledForExtensions(true);
         config.setConnectionTimeout(60 * 1000);
         config.setReplyTimeout(60 * 1000);
-
         final XmlRpcClient client = new XmlRpcClient();
 
         // use Commons HttpClient as transport
