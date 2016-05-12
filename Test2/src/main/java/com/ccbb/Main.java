@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.openstack4j.api.OSClient;
+import org.openstack4j.core.transport.Config;
+import org.openstack4j.core.transport.ProxyHost;
 import org.openstack4j.model.network.IPVersionType;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.Subnet;
@@ -46,8 +48,9 @@ public class Main {
 
 
                 OSClient os = OSFactory.builder()
-                        .endpoint("http://127.0.0.1:10500/v2.0")
+                        .endpoint("http://127.0.0.1:5000/v2.0")
                         .credentials("ens11","J8N9CE").tenantName("service")
+                        .withConfig(Config.newConfig().withProxy(ProxyHost.of("http://127.0.0.1", 5000)))
                         .authenticate();
                 System.out.println(os);
                 System.out.println(os.images().list());
