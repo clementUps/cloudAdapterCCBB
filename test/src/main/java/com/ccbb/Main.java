@@ -13,22 +13,9 @@ import java.io.*;
  */
 public class Main {
 
-    public static void writeLog(String str){
-        try {
-            PrintWriter f = new PrintWriter("/home/fedora/projet/cloudAdapterCCBB/Test2/log.txt","UTF-8");
-            f.write(str);
-            f.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public static void main(String[] args) throws IOException, InterruptedException, XmlRpcException {
         System.out.println("Salut");
-        writeLog("Debut du server");
         WebServer webServer = new WebServer(2000);
 
         XmlRpcServer xmlRpcServer = webServer.getXmlRpcServer();
@@ -43,7 +30,6 @@ public class Main {
         serverConfig.setEnabledForExtensions(true);
         serverConfig.setContentLengthOptional(false);
         System.out.println("fin init server");
-        writeLog("Log port "+2000+" server start");
         webServer.start();
     }
 }
