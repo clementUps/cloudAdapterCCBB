@@ -50,7 +50,7 @@ public class Main {
                 OSClient os = OSFactory.builder()
                         .endpoint("http://127.0.0.1:5000/v2.0")
                         .credentials("ens11","J8N9CE").tenantName("service")
-                        .withConfig(Config.newConfig().withProxy(ProxyHost.of("http://127.0.0.1", 5000)))
+                        .withConfig(Config.newConfig().withProxy(ProxyHost.of("http://127.0.0.1", 15000)))
                         .authenticate();
                 System.out.println(os);
                 System.out.println(os.images().list());
