@@ -27,7 +27,7 @@ import org.openstack4j.openstack.networking.domain.NeutronSubnet;
 public class Main {
     private static final String url = "http://";
     private static final String adresseDestination = "127.0.0.1";
-    private static final String portDestination = "8002";
+    private static final String portDestination = "10999";
     private static final String root = "/test";
 
     public static void main(String[] args) throws IOException, InterruptedException, XmlRpcException {

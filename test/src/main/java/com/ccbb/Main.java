@@ -35,7 +35,7 @@ public class Main {
         System.out.println("Salut");
         InetAddress adrLocale = InetAddress.getLocalHost();
         System.out.println(" "+adrLocale.getHostAddress());
-        WebServer webServer = new WebServer(8002);
+        WebServer webServer = new WebServer(10999);
         XmlRpcServer xmlRpcServer = webServer.getXmlRpcServer();
 
         PropertyHandlerMapping phm = new PropertyHandlerMapping();
