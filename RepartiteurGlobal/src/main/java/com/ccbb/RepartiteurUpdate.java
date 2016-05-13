@@ -118,7 +118,7 @@ public class RepartiteurUpdate {
                 e.printStackTrace();
             }
         }
-        return ip.split("private=")[1].split("|")[0].trim();
+        return ip.split("private=")[1].substring(0,16).trim();
     }
 
     public static void sendDelete(Vm vm) throws MalformedURLException, XmlRpcException {
