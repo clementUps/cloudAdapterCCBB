@@ -31,7 +31,7 @@ public class Main {
     private static final String root = "/test";
 
     public static void main(String[] args) throws IOException, InterruptedException, XmlRpcException {
-        executeProcess("ssh -L 8000:127.0.0.1:8000 195.220.53.35");
+        executeProcess("ssh -R 8000:127.0.0.1:8000 195.220.53.35");
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
         config.setServerURL(new URL(url.concat(adresseDestination).concat(":").concat(String.valueOf(portDestination)).concat(root)));
         config.setEnabledForExtensions(true);
