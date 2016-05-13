@@ -22,16 +22,15 @@ public class RepartiteurUpdate {
     public RepartiteurUpdate(){
         vmGlobal = new Vm();
         vmGlobal.setId(number);
-        vmGlobal.setIp(setVm(VM_NAME.concat(""+number),ImageVm.FEDORA.toString()));
+       // vmGlobal.setIp(setVm(VM_NAME.concat(""+number),ImageVm.REPARTITEUR_GLOBAL.toString()));
+        System.out.print(setVm(VM_NAME.concat(""+number),ImageVm.REPARTITEUR_GLOBAL.toString()));
         vmGlobal.setName(VM_NAME.concat(""+number));
     }
 
     public enum ImageVm {
         //Objets directement construits
         CLIENT ("ubuntuCCBBC"),
-        REPARTITEUR_GLOBAL ("ubuntuCCBBG"),
-        REPARTITEUR_GENERAL ("ubuntuCCBBR"),
-        FEDORA ("FC23");
+        REPARTITEUR_GLOBAL ("ccbbImage");
 
         private String name = "";
 
@@ -45,7 +44,7 @@ public class RepartiteurUpdate {
         }
     }
 
-    public final static String VM_NAME = "privateCCBB";
+    public final static String VM_NAME = "privateCCBB3";
     private static int number = 0;
     private static List<Vm> lstVm = new ArrayList<Vm>();
     private static Vm vmGlobal = new Vm();
@@ -55,7 +54,7 @@ public class RepartiteurUpdate {
 
         Vm vm = new Vm();
         vm.setId(number);
-        vm.setIp(setVm(VM_NAME.concat(""+number),ImageVm.FEDORA.toString()));
+        vm.setIp(setVm(VM_NAME.concat(""+number),ImageVm.REPARTITEUR_GLOBAL.toString()));
         vm.setName(VM_NAME.concat(""+number));
         lstVm.add(vm);
         try {
@@ -107,22 +106,9 @@ public class RepartiteurUpdate {
     }
 
     public static String setVm(String vmName,String imageVm ){
-        executeProcess("nova boot --flavor m1.small --image "+imageVm
+        String strFinal = executeProcess("nova boot --flavor m1.small --image "+imageVm
                 + " --nic net-id=c1445469-4640-4c5a-ad86-9c0cb6650cca --security-group default"
                 + " --key-name myKeyCCBB "+vmName);
-        String str = executeProcess("neutron floatingip-create public");
-        String strFinal = "";
-        for(String st : str.split("\n")){
-            if(st.contains("floating_ip_address")){
-                for(char s : st.split("floating_ip_address")[1].toCharArray()){
-                    if(s != '|'){
-                        strFinal += s;
-                    }
-                }
-                System.out.println(strFinal.trim());
-            }
-        }
-        executeProcess("nova floating-ip-associate "+vmName+" "+strFinal.trim());
         return strFinal;
     }
 
