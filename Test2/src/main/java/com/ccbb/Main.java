@@ -5,7 +5,10 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.apache.xmlrpc.client.XmlRpcCommonsTransportFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 
 import org.openstack4j.api.OSClient;
@@ -23,12 +26,13 @@ import org.openstack4j.openstack.networking.domain.NeutronSubnet;
  */
 public class Main {
     private static final String url = "http://";
-    private static final String adresseDestination = "192.168.56.1";
-    private static final String portDestination = "2001";
+    private static final String adresseDestination = "127.0.0.1";
+    private static final String portDestination = "8000";
     private static final String root = "/test";
 
     public static void main(String[] args) throws IOException, InterruptedException, XmlRpcException {
-       /* XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+        executeProcess("ssh -L 8000:127.0.0.1:8000 195.220.53.35");
+        XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
         config.setServerURL(new URL(url.concat(adresseDestination).concat(":").concat(String.valueOf(portDestination)).concat(root)));
         config.setEnabledForExtensions(true);
         config.setConnectionTimeout(60 * 1000);
@@ -42,19 +46,39 @@ public class Main {
         client.setConfig(config);
         final Object[] params = new Object[]
                 { new String(" nombre ")};
-        System.out.println(client.execute("A.bonjour", params));*/
+        System.out.println(client.execute("A.bonjour", params));
+    }
 
+    public static String executeProcess(String cmd) {
+        ProcessBuilder process = new ProcessBuilder("/bin/sh", "-c", cmd);
+        System.out.println("début ");
+        Process p;
+        StringBuilder sb = new StringBuilder();
+        try {
+            System.out.println("start ");
+            p = process.start();
+            System.out.println("lancé ");
+            try {
+                System.out.println("début wait ");
+                p.waitFor();
+                System.out.println("fin wait ");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
+            InputStream is = p.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String ligne;
 
+            while (( ligne = br.readLine()) != null) {
+                sb.append(ligne).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                OSClient os = OSFactory.builder()
-                        .endpoint("http://127.0.0.1:5000/v2.0")
-                        .credentials("ens11","J8N9CE").tenantName("service")
-                        .withConfig(Config.newConfig().withProxy(ProxyHost.of("http://127.0.0.1", 15000)))
-                        .authenticate();
-                System.out.println(os);
-                System.out.println(os.images().list());
-
+        return sb.toString();
     }
 
 }
