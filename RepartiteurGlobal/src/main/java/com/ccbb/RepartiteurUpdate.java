@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class RepartiteurUpdate {
 
-    public RepartiteurUpdate(){
+    public RepartiteurUpdate() throws InterruptedException {
         vmGlobal = new Vm();
         vmGlobal.setId(number);
        // vmGlobal.setIp(setVm(VM_NAME.concat(""+number),ImageVm.REPARTITEUR_GLOBAL.toString()));
@@ -49,7 +49,7 @@ public class RepartiteurUpdate {
     private static List<Vm> lstVm = new ArrayList<Vm>();
     private static Vm vmGlobal = new Vm();
 
-    public static String addVM(){
+    public static String addVM() throws InterruptedException {
         number++;
 
         Vm vm = new Vm();
@@ -105,11 +105,20 @@ public class RepartiteurUpdate {
         return (Integer)client.execute(action, params);
     }
 
-    public static String setVm(String vmName,String imageVm ){
-        String strFinal = executeProcess("nova boot --flavor m1.small --image "+imageVm
+    public static String setVm(String vmName,String imageVm ) throws InterruptedException {
+       executeProcess("nova boot --flavor m1.small --image "+imageVm
                 + " --nic net-id=c1445469-4640-4c5a-ad86-9c0cb6650cca --security-group default"
                 + " --key-name myKeyCCBB "+vmName);
-        return strFinal;
+        String strFinal =  "nova list | grep "+vmName;
+        String ip = "";
+        while (!(ip = executeProcess(strFinal)).contains("Running")) {
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return ip.split("private=")[1];
     }
 
     public static void sendDelete(Vm vm) throws MalformedURLException, XmlRpcException {

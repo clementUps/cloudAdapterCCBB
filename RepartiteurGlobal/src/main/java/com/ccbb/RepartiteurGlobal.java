@@ -16,7 +16,6 @@ public class RepartiteurGlobal {
 
     public static void main(String[] args) throws Exception {
         RepartiteurUpdate repartiteurUpdate = new RepartiteurUpdate();
-      //  repartiteurUpdate.addVM();
     }
 
 }

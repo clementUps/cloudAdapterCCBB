@@ -5,16 +5,6 @@ package com.ccbb;
  */
 public class RepartiteurEcoute {
 
-
-
-    public String add(int id){
-        return RepartiteurUpdate.addVM();
-    }
-
-    public String del(int id){
-        return RepartiteurUpdate.delVM(id);
-    }
-
 }
 
 
