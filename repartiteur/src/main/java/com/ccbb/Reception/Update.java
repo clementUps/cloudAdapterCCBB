@@ -15,9 +15,4 @@ public class Update {
         }
         return 3;
     }
-
-    public int addId(int id){
-        Algorithme.setId(id);
-        return 1;
-    }
 }

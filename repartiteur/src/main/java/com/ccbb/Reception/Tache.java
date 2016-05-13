@@ -15,13 +15,6 @@ public class Tache {
         return thread;
     }
 
-    public Thread getThread(){
-        return thread;
-    }
-
-    public void setThread(){
-
-    }
     public synchronized void waitResult() throws InterruptedException {
         while(result == null){
             this.wait();

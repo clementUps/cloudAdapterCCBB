@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar /home/fedora/projet/cloudAdapterCCBB/test/test-jar-with-dependencies.jar
+java -jar /home/fedora/projet/cloudAdapterCCBB/repartiter/repartiteur-jar-with-dependencies.jar
