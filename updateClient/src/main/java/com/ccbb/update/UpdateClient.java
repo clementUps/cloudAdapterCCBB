@@ -1,4 +1,4 @@
-package ccbb.update;
+package com.ccbb.update;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;

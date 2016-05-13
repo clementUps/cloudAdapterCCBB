@@ -19,7 +19,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.ccbb.Server</mainClass>
+                            <mainClass>com.ccbb.Client</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -33,7 +33,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.ccbb.client.ClientEnvoi</mainClass>
+                            <mainClass>com.ccbb.Client</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

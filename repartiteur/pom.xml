@@ -21,7 +21,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.ccbb.repartiteurVm.Repartiteur</mainClass>
+                            <mainClass>com.ccbb.repartiteur.Repartiteur</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
