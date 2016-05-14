@@ -20,20 +20,20 @@ public class RepartiteurGlobal {
         Scanner input = new Scanner(System.in); //opens a scanner, keyboard
         String cm = "";
         System.out.println("Rentrer une commande");
-        while(cm != "quit"){
-            if(cm.equals("add")) {
+        while(!cm.contains("quit")){
+            if(cm.contains("add")) {
                 repartiteurUpdate.addVM();
-            } else if(cm.equals("del")){
+            } else if(cm.contains("del")){
                 repartiteurUpdate.removeVm(repartiteurUpdate.getList().get(0).getIp());
-            } else if(cm.equals("list")){
+            } else if(cm.contains("list")){
                 repartiteurUpdate.executeProcess("nova list");
-            } else if(cm.equals("check")){
+            } else if(cm.contains("check")){
                 Object[] params = new Object[]
                         {new String("check")};
                 System.out.println(ecoute.send(RepartiteurEcoute.Requete.CHECK,params));
-            } else if(cm.equals("create")){
+            } else if(cm.contains("create")){
 
-            } else if(cm.equals("remove")){
+            } else if(cm.contains("remove")){
 
             }
             cm = input.next();
