@@ -4,6 +4,7 @@ import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.apache.xmlrpc.client.XmlRpcCommonsTransportFactory;
+import org.openstack4j.model.compute.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,17 +22,16 @@ import java.util.List;
 public class RepartiteurUpdate {
 
     public RepartiteurUpdate() throws InterruptedException {
-        vmGlobal = new Vm();
-        vmGlobal.setId(number);
-       // vmGlobal.setIp(setVm(VM_NAME.concat(""+number),ImageVm.REPARTITEUR_GLOBAL.toString()));
-        System.out.print(setVm(VM_NAME.concat(""+number),ImageVm.REPARTITEUR_GLOBAL.toString()));
-        vmGlobal.setName(VM_NAME.concat(""+number));
+        Vm vm = new Vm();
+        vm.setIp(setVm(VM_NAME.concat(""+lstVm.size()),ImageVm.REPARTITEUR_GLOBAL.toString()));
+        vm.setName(VM_NAME.concat(""+lstVm.size()));
+        lstVm.add(vm);
     }
 
     public enum ImageVm {
         //Objets directement construits
         CLIENT ("ubuntuCCBBC"),
-        REPARTITEUR_GLOBAL ("ccbbImage");
+        REPARTITEUR_GLOBAL ("ccblImageServer");
 
         private String name = "";
 
@@ -44,65 +45,15 @@ public class RepartiteurUpdate {
         }
     }
 
-    public final static String VM_NAME = "privateCCBB3";
-    private static int number = 0;
+    public final static String VM_NAME = "privateCCBB";
     private static List<Vm> lstVm = new ArrayList<Vm>();
-    private static Vm vmGlobal = new Vm();
 
-    public static String addVM() throws InterruptedException {
-        number++;
-
+    public static Vm addVM() throws InterruptedException {
         Vm vm = new Vm();
-        vm.setId(number);
-        vm.setIp(setVm(VM_NAME.concat(""+number),ImageVm.REPARTITEUR_GLOBAL.toString()));
-        vm.setName(VM_NAME.concat(""+number));
+        vm.setIp(setVm(VM_NAME.concat(""+lstVm.size()),ImageVm.REPARTITEUR_GLOBAL.toString()));
+        vm.setName(VM_NAME.concat(""+lstVm.size()));
         lstVm.add(vm);
-        try {
-            sendId(vm);
-            sendUpdate(vm);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            suppVm(vm);
-        } catch (XmlRpcException e) {
-            e.printStackTrace();
-            suppVm(vm);
-        }
-        return "";
-    }
-
-    private static int sendId(Vm vm) throws MalformedURLException, XmlRpcException {
-        // make the a regular call
-        Object[] params = new Object[]
-                { new Integer(vm.getId())};
-        return send(vm,"Updater.addId",params);
-    }
-
-    private static int sendUpdate(Vm vm)  throws MalformedURLException, XmlRpcException {
-        Object[] params = new Object[]
-                {new String(vm.getIp()), new Integer(vm.getPort())};
-        return send(vmGlobal,"Updater.update",params);
-    }
-
-    private static int send(Vm vm,String action,Object[] params) throws MalformedURLException, XmlRpcException {
-        String _IPClient = vm.getIp();
-        int _PortClient = vm.getPort();
-
-        // create configuration
-        XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-        config.setServerURL(new URL("http://" + _IPClient +":"+ _PortClient +"/repartiteur"));
-        //config.setServerURL(new URL("http://127.0.0.1:19000/updateClient"));
-        config.setEnabledForExtensions(true);
-        config.setConnectionTimeout(60 * 1000);
-        config.setReplyTimeout(60 * 1000);
-
-        XmlRpcClient client = new XmlRpcClient();
-
-        // use Commons HttpClient as transport
-        client.setTransportFactory(
-                new XmlRpcCommonsTransportFactory(client));
-        // set configuration
-        client.setConfig(config);
-        return (Integer)client.execute(action, params);
+        return vm;
     }
 
     public static String setVm(String vmName,String imageVm ) throws InterruptedException {
@@ -121,44 +72,35 @@ public class RepartiteurUpdate {
         return ip.split("private=")[1].substring(0,16).trim();
     }
 
-    public static void sendDelete(Vm vm) throws MalformedURLException, XmlRpcException {
-        // make the a regular call
-        Object[] params = new Object[]
-                { new String(vm.getIp()),new Integer(vm.getPort()) };
-        send(vmGlobal,"Updater.remove",params);
-    }
 
-    public static void suppVm(Vm vmName) {
-        try {
-            sendDelete(vmName);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (XmlRpcException e) {
-            e.printStackTrace();
-        }
-        try {
-            Thread.currentThread().sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            executeProcess("nova delete "+vmName.getName());
+    public static void removeVm(String ip){
+        String name;
+        if(!(name = findAndRemove(ip)).equals("")) {
+            delVm(name);
         }
     }
 
-    public static String delVM(int id){
-        List<Vm> ls = new ArrayList<Vm>();
-        for(Vm vm : lstVm){
-            if(vm.getId() == id){
-                suppVm(vm);
-            } else {
-                ls.add(vm);
+    public static void delVm(String name){
+        executeProcess("nova delete "+name);
+    }
+
+    public static List<Vm> getList(){
+        return lstVm;
+    }
+
+    public static String findAndRemove(String ip){
+        String name  = "";
+        Iterator<Vm> i = lstVm.iterator();
+        while (i.hasNext()) {
+            Vm vm = i.next();
+            if(vm.getIp().equals(ip)) {
+                name = vm.getName();
+                i.remove();
+                return name;
             }
         }
-        lstVm.clear();
-        lstVm.addAll(ls);
-        return "del";
+        return name;
     }
-
 
     public static String executeProcess(String cmd) {
         ProcessBuilder process = new ProcessBuilder("/bin/sh", "-c", cmd);
