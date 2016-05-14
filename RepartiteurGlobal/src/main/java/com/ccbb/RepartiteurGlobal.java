@@ -1,14 +1,6 @@
 package com.ccbb;
 
-import org.apache.xmlrpc.XmlRpcException;
-import org.apache.xmlrpc.server.PropertyHandlerMapping;
-import org.apache.xmlrpc.server.XmlRpcServer;
-import org.apache.xmlrpc.server.XmlRpcServerConfigImpl;
-import org.apache.xmlrpc.webserver.WebServer;
-
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.Timer;
 
 /**
  * Created by CCA3441 on 09/05/2016.
