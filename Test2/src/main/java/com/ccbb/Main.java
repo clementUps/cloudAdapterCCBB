@@ -14,7 +14,7 @@ import java.net.URL;
 public class Main {
     private static final String url = "http://";
     private static final String adresseDestination = "127.0.0.1";
-    private static final String portDestination = "2004";
+    private static final String portDestination = "2003";
     private static final String root = "/test";
 
     public static void main(String[] args) throws IOException, InterruptedException, XmlRpcException {
