@@ -26,7 +26,7 @@ public class RepartiteurGlobal {
             } else if(cm.contains("del")){
                 repartiteurUpdate.removeVm(repartiteurUpdate.getList().get(0).getIp());
             } else if(cm.contains("list")){
-                repartiteurUpdate.executeProcess("nova list");
+                System.out.println(repartiteurUpdate.executeProcess("nova list"));
             } else if(cm.contains("check")){
                 Object[] params = new Object[]
                         {new String("check")};
