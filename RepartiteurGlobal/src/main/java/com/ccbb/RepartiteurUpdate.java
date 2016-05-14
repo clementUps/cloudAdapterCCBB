@@ -61,6 +61,7 @@ public class RepartiteurUpdate {
                 e.printStackTrace();
             }
         }
+        System.out.println("creation de la vm termine");
         return ip.split("private=")[1].substring(0,16).trim();
     }
 
@@ -70,6 +71,7 @@ public class RepartiteurUpdate {
         if(!(name = findAndRemove(ip)).equals("")) {
             delVm(name);
         }
+        System.out.println("suppression de la vm termine");
     }
 
     public static void delVm(String name){
@@ -96,17 +98,12 @@ public class RepartiteurUpdate {
 
     public static String executeProcess(String cmd) {
         ProcessBuilder process = new ProcessBuilder("/bin/sh", "-c", cmd);
-        System.out.println("début ");
         Process p;
         StringBuilder sb = new StringBuilder();
         try {
-            System.out.println("start ");
             p = process.start();
-            System.out.println("lancé ");
             try {
-                System.out.println("début wait ");
                 p.waitFor();
-                System.out.println("fin wait ");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

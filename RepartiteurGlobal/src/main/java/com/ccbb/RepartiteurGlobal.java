@@ -19,7 +19,8 @@ public class RepartiteurGlobal {
         */
         Scanner input = new Scanner(System.in); //opens a scanner, keyboard
         String cm = "";
-        while((cm =input.next()) != "quit"){
+        System.out.println("Rentrer une commande");
+        while(cm != "quit"){
             if(cm.equals("add")) {
                 repartiteurUpdate.addVM();
             } else if(cm.equals("del")){
@@ -35,6 +36,7 @@ public class RepartiteurGlobal {
             } else if(cm.equals("remove")){
 
             }
+            cm = input.next();
         }
 
 
