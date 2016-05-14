@@ -45,6 +45,7 @@ public class RepartiteurEcoute extends TimerTask {
     public Object send(Requete requete,Object[] params) throws MalformedURLException, XmlRpcException {
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
         config.setServerURL(new URL(("http://").concat(adresseDestination).concat(":").concat(String.valueOf(portDestination)).concat(root)));
+        System.out.println("url : "+config.getServerURL().getPath()+ "\nparams "+requete.toString());
         config.setEnabledForExtensions(true);
         config.setConnectionTimeout(60 * 1000);
         config.setReplyTimeout(60 * 1000);
