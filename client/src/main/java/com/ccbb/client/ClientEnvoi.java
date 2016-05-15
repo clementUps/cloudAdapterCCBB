@@ -7,7 +7,6 @@ import org.apache.xmlrpc.client.XmlRpcCommonsTransportFactory;
 
 import java.net.URL;
 import java.util.TimerTask;
-import java.util.concurrent.RunnableFuture;
 
 public class ClientEnvoi extends TimerTask {
     private String adresseDestination = "127.0.0.1";
@@ -15,6 +14,8 @@ public class ClientEnvoi extends TimerTask {
     private final String url = "http://";
     private final String root = "/repartiteurVm";
     private static int nbRequete = 18;
+    private static int number = 0;
+    private static boolean isUp = false;
 
     public ClientEnvoi(int _nbRequete, String _IpRepartiteur, int _PortRepartiteur) {
         nbRequete = _nbRequete;
@@ -43,6 +44,16 @@ public class ClientEnvoi extends TimerTask {
             final int nb = i;
             Runnable runnable = new Runnable() {
                 public void run() {
+                    number++;
+                    if(number > 5 && !isUp){
+                        nbRequete += 100;
+                        isUp = true;
+                        number = 0;
+                    } else if(number > 5 && isUp){
+                        nbRequete -=100;
+                        isUp = false;
+                        number = 0;
+                    }
                     // make the a regular call
                     final Object[] params = new Object[]
                             { new String(" nombre "+nb), new Integer(3) };
