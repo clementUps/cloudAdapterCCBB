@@ -17,29 +17,6 @@ public class RepartiteurGlobal {
        /* Timer timer = new Timer();
         timer.schedule(ecoute, 0, 5000);
         */
-        Scanner input = new Scanner(System.in); //opens a scanner, keyboard
-        String cm = "";
-        System.out.println("Rentrer une commande");
-        while(!cm.contains("quit")){
-            if(cm.contains("add")) {
-                repartiteurUpdate.addVM();
-            } else if(cm.contains("del")){
-                repartiteurUpdate.removeVm(repartiteurUpdate.getList().get(0).getIp());
-            } else if(cm.contains("list")){
-                System.out.println(repartiteurUpdate.executeProcess("nova list"));
-            } else if(cm.contains("check")){
-                Object[] params = new Object[]
-                        {new String("check")};
-                System.out.println(ecoute.send(RepartiteurEcoute.Requete.CHECK,params));
-            } else if(cm.contains("create")){
-
-            } else if(cm.contains("remove")){
-
-            }
-            cm = input.next();
-        }
-
-
     }
 
 }
