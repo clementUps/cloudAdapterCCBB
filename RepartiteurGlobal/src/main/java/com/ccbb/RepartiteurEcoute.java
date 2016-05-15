@@ -40,6 +40,7 @@ public class RepartiteurEcoute extends TimerTask {
     }
 
     public Object send(String requete,String[] params) throws MalformedURLException, XmlRpcException {
+        System.out.println("ssh fedora@"+adresseDestination+" '/home/fedora/test.sh "+requete+" "+params[0]+" "+params[1]+"'");
         String s = repartiteurUpdate.executeProcess("ssh fedora@"+adresseDestination+" '/home/fedora/test.sh "+requete+" "+params[0]+" "+params[1]+"'");
         System.out.println(s);
         return s;
@@ -69,10 +70,13 @@ public class RepartiteurEcoute extends TimerTask {
             }
             number = 0;
         } catch (MalformedURLException e) {
+            System.out.println("erreur "+e.getMessage());
             e.printStackTrace();
         } catch (XmlRpcException e) {
+            System.out.println("erreur "+e.getMessage());
             e.printStackTrace();
         } catch (InterruptedException e) {
+            System.out.println("erreur "+e.getMessage());
             e.printStackTrace();
             if(number > 200){
                 System.exit(0);

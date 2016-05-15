@@ -23,7 +23,7 @@ public class RepartiteurUpdate {
     public enum ImageVm {
         //Objets directement construits
         CLIENT ("ubuntuCCBBC"),
-        REPARTITEUR_GLOBAL ("ccblImageServer");
+        REPARTITEUR_GLOBAL ("CCBLImageServer");
 
         private String name = "";
 

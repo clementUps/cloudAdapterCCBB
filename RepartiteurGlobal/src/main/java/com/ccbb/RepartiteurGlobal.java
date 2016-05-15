@@ -15,6 +15,7 @@ public class RepartiteurGlobal {
         }
         RepartiteurUpdate repartiteurUpdate = new RepartiteurUpdate();
         RepartiteurEcoute ecoute = new RepartiteurEcoute(repartiteurUpdate,args[0]);
+        System.out.println("fin init ");
         Timer timer = new Timer();
         timer.schedule(ecoute, 0, 5000);
     }
