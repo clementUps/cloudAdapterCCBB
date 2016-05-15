@@ -14,11 +14,8 @@ import java.util.TimerTask;
  */
 public class RepartiteurEcoute extends TimerTask {
     public static RepartiteurUpdate repartiteurUpdate;
-    private static final String url = "http://";
-    private static String adresseDestination = "127.0.0.1";
-    private static final String portDestination = "2004";
-    private static final String root = "/repartiteur";
-
+    public static String adresseDestination = "";
+    public static int number;
     public enum Requete {
         //Objets directement construits
         ADD ("Updater.update"),
@@ -42,51 +39,45 @@ public class RepartiteurEcoute extends TimerTask {
         adresseDestination = ip;
     }
 
-    public Object send(Requete requete,Object[] params) throws MalformedURLException, XmlRpcException {
-        XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-        config.setServerURL(new URL(("http://").concat(adresseDestination).concat(":").concat(String.valueOf(portDestination)).concat(root)));
-        System.out.println("url : "+config.getServerURL().getPort()+config.getServerURL().getPath()+ "\nparams "+requete.toString());
-        config.setEnabledForExtensions(true);
-        config.setConnectionTimeout(60 * 1000);
-        config.setReplyTimeout(60 * 1000);
-        final XmlRpcClient client = new XmlRpcClient();
-
-        // use Commons HttpClient as transport
-        client.setTransportFactory(
-                new XmlRpcCommonsTransportFactory(client));
-        // set configuration
-        client.setConfig(config);
-        return client.execute(requete.toString(), params);
+    public Object send(String requete,String[] params) throws MalformedURLException, XmlRpcException {
+        String s = repartiteurUpdate.executeProcess("ssh fedora@"+adresseDestination+" '/home/fedora/test.sh "+requete+" "+params[0]+" "+params[1]+"'");
+        System.out.println(s);
+        return s;
     }
 
     public void run() {
-        Object[] params = new Object[]
-                {new String("check")};
+        String[] params = new String[]
+                {new String("check"), new String("e")};
         int nbRequete = 0;
         String ip = "";
         try {
-            nbRequete = (Integer)send(Requete.CHECK,params);
+            nbRequete = (Integer)send("check",params);
             if(nbRequete > 50){
 
                 Vm vm=repartiteurUpdate.addVM();
-                params = new Object[]
-                        {new String(vm.getIp())};
-                ip = (String)send(Requete.ADD,params);
+                params = new String[]
+                        {new String(vm.getIp()), new String("a")};
+                ip = (String)send("add",params);
                 if(ip.equals("")){
                     repartiteurUpdate.findAndRemove(ip);
                 }
             } else if (nbRequete < 5){
-                ip = (String)send(Requete.DEL,params);
+                ip = (String)send("del",params);
                 if(!ip.equals("")){
                     repartiteurUpdate.removeVm(ip);
                 }
             }
+            number = 0;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (XmlRpcException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            if(number > 200){
+                System.exit(0);
+            }
+            number++;
         }
     }
 }
