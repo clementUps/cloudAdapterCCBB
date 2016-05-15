@@ -48,21 +48,26 @@ public class RepartiteurEcoute extends TimerTask {
 
     public void run() {
         String[] params = new String[]
-                {new String("check"), new String("e")};
+                {new String("localhost"), new String("2003")};
         int nbRequete = 0;
         String ip = "";
         try {
-            nbRequete = (Integer)send("check",params);
+            String st = (String) send("check",params);
+            if(!st.equals("")){
+                nbRequete = Integer.parseInt(st);
+            } else {
+                nbRequete = -1;
+            }
             if(nbRequete > 50){
 
                 Vm vm=repartiteurUpdate.addVM();
                 params = new String[]
-                        {new String(vm.getIp()), new String("a")};
+                        {new String(vm.getIp()), new String("2003")};
                 ip = (String)send("add",params);
                 if(ip.equals("")){
                     repartiteurUpdate.findAndRemove(ip);
                 }
-            } else if (nbRequete < 5){
+            } else if (nbRequete < 5 && nbRequete > 0){
                 ip = (String)send("del",params);
                 if(!ip.equals("")){
                     repartiteurUpdate.removeVm(ip);
