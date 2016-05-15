@@ -42,7 +42,7 @@ public class Algorithme {
                     public void run() {
                         try {
                             System.out.print("Server " + server.getIp() + " port " + server.getPort() +"                        " );
-                            tache.setResult((String) server.getClient().execute("Calculator.add", tache.getParams()));
+                            tache.setResult((String) server.getClient().execute("Repartition.repartir", tache.getParams()));
                             tache.notifyResult();
                             server.setPret(true);
                             addServer(server);
