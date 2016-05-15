@@ -40,9 +40,8 @@ public class EnvoieServer {
     }
 
 
-    public static void deleteServer(String ip,int port) throws MalformedURLException {
-        Server server = makeServer(ip,port);
-        Algorithme.deleteServer(server);
+    public static String deleteServer() throws MalformedURLException {
+        return Algorithme.deleteServer();
     }
 
 

@@ -17,14 +17,14 @@ public class Algorithme {
     private static List<Tache> tacheList;
     private static boolean isUse = false;
 
-    public static int getNbRequete(){
+    public static int getNbRequete() {
         return tacheList.size();
     }
 
-    public synchronized static void deleteServer(Server server){
-        if(servers.contains(server)){
-            servers.remove(server);
-        }
+    public synchronized static String deleteServer() {
+        if (servers.size() > 1)
+            return servers.poll().getIp();
+        return "";
     }
 
     public synchronized static void algorithme() throws InterruptedException, MalformedURLException, XmlRpcException {
@@ -41,7 +41,7 @@ public class Algorithme {
                 Runnable runnable = new Runnable() {
                     public void run() {
                         try {
-                            System.out.print("Server " + server.getIp() + " port " + server.getPort() +"                        " );
+                            System.out.print("Server " + server.getIp() + " port " + server.getPort() + "                        ");
                             tache.setResult((String) server.getClient().execute("Repartition.repartir", tache.getParams()));
                             tache.notifyResult();
                             server.setPret(true);
@@ -67,9 +67,9 @@ public class Algorithme {
         if (servers == null) {
             servers = new LinkedList<Server>();
         }
-        System.out.print(serverAdd.getPort()+" ");
+        System.out.print(serverAdd.getPort() + " ");
         if (!servers.contains(serverAdd)) {
-            System.out.println(""+serverAdd.getPret());
+            System.out.println("" + serverAdd.getPret());
             servers.add(serverAdd);
         }
     }
