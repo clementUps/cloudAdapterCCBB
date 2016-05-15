@@ -54,7 +54,7 @@ public class RepartiteurEcoute extends TimerTask {
         try {
             String st = (String) send("check",params);
             if(!st.equals("")){
-                nbRequete = Integer.parseInt(st);
+                nbRequete = Integer.parseInt(st.trim());
             } else {
                 nbRequete = -1;
             }
