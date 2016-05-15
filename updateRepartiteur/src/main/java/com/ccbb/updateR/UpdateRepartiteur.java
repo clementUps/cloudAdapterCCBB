@@ -45,11 +45,16 @@ public class UpdateRepartiteur {
         // make the a regular call
         Object[] params = new Object[]
                 {new String(_Argument1), new Integer(_Argument2)};
+        String result = "";
         if (addOrDel.equals("add")) {
-            Integer result = (Integer) client.execute("Updater.update", params);
+            result = (String) client.execute("Updater.update", params);
         } else if (addOrDel.equals("del")) {
-            Integer result = (Integer) client.execute("Updater.remove", params);
+            result = (String) client.execute("Updater.remove", params);
+        } else if (addOrDel.equals("check")) {
+            result = (String) client.execute("Updater.checkNbRequete", params);
         }
+
+        System.out.println(result);
         // make a call using dynamic proxy
         /*          ClientFactory factory = new ClientFactory(client);
             Adder adder = (Adder) factory.newInstance(Adder.class);

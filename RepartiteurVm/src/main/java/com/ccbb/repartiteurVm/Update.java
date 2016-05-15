@@ -17,7 +17,7 @@ public class Update {
         return 0;
     }
 
-    public int checkNbRequete(String check){
+    public int checkNbRequete(String check,int a){
         return Algorithme.getNbRequete();
     }
 
