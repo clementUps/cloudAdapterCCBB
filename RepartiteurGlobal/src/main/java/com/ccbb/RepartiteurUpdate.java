@@ -49,9 +49,9 @@ public class RepartiteurUpdate {
     }
 
     public static String setVm(String vmName,String imageVm ) throws InterruptedException {
-       executeProcess("nova boot --flavor m1.small --image "+imageVm
+       System.out.println(executeProcess("nova boot --flavor m1.small --image "+imageVm
                 + " --nic net-id=c1445469-4640-4c5a-ad86-9c0cb6650cca --security-group default"
-                + " --key-name myKeyCCBB "+vmName);
+                + " --key-name myKeyCCBB "+vmName));
         String strFinal =  "nova list | grep "+vmName;
         String ip = "";
         while (!(ip = executeProcess(strFinal)).contains("Running")) {
