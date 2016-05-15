@@ -6,7 +6,7 @@ import java.net.MalformedURLException;
  * Created by clement on 04/05/2016.
  */
 public class Update {
-    public int update(String a)
+    public int update(String a,int port)
     {
         try {
             EnvoieServer.addServer(a,2003);
@@ -21,7 +21,7 @@ public class Update {
         return Algorithme.getNbRequete();
     }
 
-    public int delete(String ip){
+    public int delete(String ip,int port){
         try {
             EnvoieServer.deleteServer(ip,2003);
         } catch (MalformedURLException e) {
