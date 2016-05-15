@@ -21,7 +21,7 @@ public class Update {
         return ""+Algorithme.getNbRequete();
     }
 
-    public String delete(String ip,int port){
+    public String remove(String ip,int port){
         try {
             return EnvoieServer.deleteServer();
         } catch (MalformedURLException e) {
