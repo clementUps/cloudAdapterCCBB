@@ -18,6 +18,9 @@ public class Algorithme {
     private static boolean isUse = false;
 
     public static int getNbRequete() {
+        if(tacheList == null){
+            return -1;
+        }
         return tacheList.size();
     }
 
