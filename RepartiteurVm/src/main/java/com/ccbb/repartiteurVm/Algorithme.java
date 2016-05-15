@@ -16,12 +16,10 @@ public class Algorithme {
     private static Queue<Server> servers;
     private static List<Tache> tacheList;
     private static boolean isUse = false;
+    private static int nbThread = 0;
 
     public static int getNbRequete() {
-        if(tacheList == null){
-            return -1;
-        }
-        return tacheList.size();
+        return servers.size();
     }
 
     public synchronized static String deleteServer() {
@@ -40,24 +38,28 @@ public class Algorithme {
             final Server server = servers.poll();
             if (server != null && server.getPret()) {
                 server.setPret(false);
-                final Tache tache = tacheList.remove(0);
-                Runnable runnable = new Runnable() {
-                    public void run() {
-                        try {
-                            System.out.print("Server " + server.getIp() + " port " + server.getPort() + "                        ");
-                            tache.setResult((String) server.getClient().execute("Repartition.repartir", tache.getParams()));
-                            tache.notifyResult();
-                            server.setPret(true);
-                            addServer(server);
-                        } catch (XmlRpcException e) {
-                            e.printStackTrace();
+                for(int i = 0; i < 50; i++) {
+                    if(tacheList.size() >0) {
+                        final Tache tache = tacheList.remove(0);
+                        Runnable runnable = new Runnable() {
+                            public void run() {
+                                try {
+                                    System.out.print("Server " + server.getIp() + " port " + server.getPort() + "                        ");
+                                    tache.setResult((String) server.getClient().execute("Repartition.repartir", tache.getParams()));
+                                    tache.notifyResult();
+                                    server.setPret(true);
+                                    addServer(server);
+                                } catch (XmlRpcException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                        if (tache != null) {
+                            tache.getThread(runnable).start();
+                        } else {
+                            System.out.println("null");
                         }
                     }
-                };
-                if (tache != null) {
-                    tache.getThread(runnable).start();
-                } else {
-                    System.out.println("null");
                 }
             }
 

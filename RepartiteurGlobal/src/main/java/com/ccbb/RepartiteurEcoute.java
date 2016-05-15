@@ -58,7 +58,7 @@ public class RepartiteurEcoute extends TimerTask {
             } else {
                 nbRequete = -1;
             }
-            if(nbRequete > 50){
+            if(nbRequete == 0){
 
                 Vm vm=repartiteurUpdate.addVM();
                 params = new String[]
@@ -67,7 +67,7 @@ public class RepartiteurEcoute extends TimerTask {
                 if(ip.equals("")){
                     repartiteurUpdate.findAndRemove(ip);
                 }
-            } else if (nbRequete < 5 && nbRequete > 0){
+            } else if (nbRequete >  2){
                 ip = (String)send("del",params);
                 if(!ip.equals("")){
                     repartiteurUpdate.removeVm(ip);
